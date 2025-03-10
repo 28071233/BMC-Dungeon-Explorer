@@ -13,9 +13,10 @@ namespace DungeonExplorer
             Name = name;
             Health = health;
         }
-        public void PickUpItem(string item)
+        public static void PickUpItem(string item)
         {
-
+            //please work i need to sleep
+            //inventory.add(item);
         }
         public string InventoryContents()
         {
