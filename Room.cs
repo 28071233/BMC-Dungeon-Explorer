@@ -11,7 +11,7 @@ namespace DungeonExplorer
 
         public Room(int roomSeed)
         {
-            // Uses a randomly generated number to select which room to load
+            // Uses a randomly generated number to select which room to loadd
             if (roomSeed >= 90)
             {
                 // copies contents from RoomIndex table and loads it into the Current room

@@ -40,6 +40,9 @@ namespace DungeonExplorer
                         case "stats":
                             Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
                             break;
+                        case "inventory":
+                            Player.InventoryContents();
+                            break;
                         case "proceed":
                             choosing = false;
                             GenerateRoom();
