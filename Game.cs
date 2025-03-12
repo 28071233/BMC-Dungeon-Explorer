@@ -27,7 +27,7 @@ namespace DungeonExplorer
                 while (choosing)
                 {
                     Console.Write("Enter input here: ");
-                    string choice = Console.ReadLine();
+                    string choice = Console.ReadLine().ToLower().Trim();
 
                     switch (choice)
                     {
@@ -42,11 +42,14 @@ namespace DungeonExplorer
                             break;
                         case "proceed":
                             choosing = false;
+                            GenerateRoom();
                             break;
-                        case "exit":
+                        case "leave":
                             if (currentRoom.GetTitle() == "Exit Room")
                             {
-                                Console.WriteLine("escaped!");
+                                choosing = false;
+                                playing = false;
+                                Console.WriteLine("Congratulations you escaped!");
                             }
                             else
                             {
@@ -54,7 +57,8 @@ namespace DungeonExplorer
                             }
                             break;
                         case "quit":
-                            Console.WriteLine("quit button here...");
+                            choosing = false;
+                            playing = false;
                             break;
                         case "help":
                             Console.WriteLine("commands are: look, search, stats, proceed, exit, quit and help...");
@@ -64,12 +68,15 @@ namespace DungeonExplorer
                             break;
                     }
                 }
-
-                // Generate a number between 0 and 99 to use for creating the next room
-                Random randomNum = new Random();
-                int seed = randomNum.Next(0, 100);
-                currentRoom = new Room(seed);
             }
+        }
+
+        public void GenerateRoom()
+        {
+            // Generate a number between 0 and 99 to use for creating the next room
+            Random randomNum = new Random();
+            int seed = randomNum.Next(0, 100);
+            currentRoom = new Room(seed);
         }
     }
 }
