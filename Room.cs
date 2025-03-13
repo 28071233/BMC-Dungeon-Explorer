@@ -15,21 +15,21 @@ namespace DungeonExplorer
             if (roomSeed >= 90)
             {
                 //Copies contents from RoomIndex table and loads it into the Current room
-                this.title = RoomIndex[2, 0];
-                this.description = RoomIndex[2, 1];
-                this.hasLoot = bool.Parse(RoomIndex[2, 2]);
+                this.title = roomIndex[2, 0];
+                this.description = roomIndex[2, 1];
+                this.hasLoot = bool.Parse(roomIndex[2, 2]);
             }
             else if (roomSeed >= 60)
             {
-                this.title = RoomIndex[1, 0];
-                this.description = RoomIndex[1, 1];
-                this.hasLoot = bool.Parse(RoomIndex[1, 2]);
+                this.title = roomIndex[1, 0];
+                this.description = roomIndex[1, 1];
+                this.hasLoot = bool.Parse(roomIndex[1, 2]);
             }
             else
             {
-                this.title = RoomIndex[0, 0];
-                this.description = RoomIndex[0, 1];
-                this.hasLoot = bool.Parse(RoomIndex[0, 2]);
+                this.title = roomIndex[0, 0];
+                this.description = roomIndex[0, 1];
+                this.hasLoot = bool.Parse(roomIndex[0, 2]);
             }
         }
         
@@ -83,7 +83,7 @@ namespace DungeonExplorer
             return hasLoot;
         }
 
-        string[,] RoomIndex =
+        string[,] roomIndex =
             {
             //Contains contents of rooms in the format - Title : Description : has loot?
                 {"Empty Room", "A cold, damp room void of colour", "false"},
