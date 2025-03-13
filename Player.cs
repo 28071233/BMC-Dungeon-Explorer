@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
@@ -6,20 +7,28 @@ namespace DungeonExplorer
     {
         public string Name { get; private set; }
         public int Health { get; private set; }
-        private List<string> inventory = new List<string>();
+        public static List<string> inventory = new List<string>();
 
         public Player(string name, int health) 
         {
             Name = name;
             Health = health;
         }
-        public void PickUpItem(string item)
-        {
 
-        }
-        public string InventoryContents()
+        //Adds item in the current room to inventory
+        public static void PickUpItem(string item)
         {
-            return string.Join(", ", inventory);
+            inventory.Add(item);
+        }
+
+        //Displays items currently in the player inventory
+        public static void InventoryContents()
+        {
+            foreach (string invitem in inventory)
+            {
+                Console.Write($"{invitem}, ");
+            }
+            Console.WriteLine();
         }
     }
 }
