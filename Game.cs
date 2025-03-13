@@ -10,12 +10,24 @@ namespace DungeonExplorer
 
         public Game()
         {
-            // Initialize the game with one player and one empty room
-            Console.Write("Please enter your characters name: ");
-            string name = Console.ReadLine();
-
-            player = new Player(name, 100);
-            currentRoom = new Room(0);
+            bool nameValidation = true;
+            while (nameValidation)
+            {
+                Console.Write("Please enter your characters name: ");
+                string name = Console.ReadLine();
+                
+                //Check input to check if the name is valid
+                if (string.IsNullOrWhiteSpace(name)) {
+                    Console.WriteLine("name cannot be empty!");
+                }
+                else
+                {
+                    //Initialize the game with one player and one empty room
+                    player = new Player(name, 100);
+                    currentRoom = new Room(0);
+                    nameValidation = false;
+                }
+            }
         }
 
         public void Start()
