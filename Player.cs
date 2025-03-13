@@ -14,10 +14,14 @@ namespace DungeonExplorer
             Name = name;
             Health = health;
         }
+
+        //Adds item in the current room to inventory
         public static void PickUpItem(string item)
         {
             inventory.Add(item);
         }
+
+        //Displays items currently in the player inventory
         public static void InventoryContents()
         {
             foreach (string invitem in inventory)

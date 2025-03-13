@@ -11,10 +11,10 @@ namespace DungeonExplorer
 
         public Room(int roomSeed)
         {
-            // Uses a randomly generated number to select which room to loadd
+            //Uses a randomly generated number to select which room to load
             if (roomSeed >= 90)
             {
-                // copies contents from RoomIndex table and loads it into the Current room
+                //Copies contents from RoomIndex table and loads it into the Current room
                 this.title = RoomIndex[2, 0];
                 this.description = RoomIndex[2, 1];
                 this.hasLoot = bool.Parse(RoomIndex[2, 2]);
@@ -33,36 +33,37 @@ namespace DungeonExplorer
             }
         }
         
-        //returns title to current room, used for checking if the room is an exit room
+        //Returns title to current room, used for checking if the room is an exit room
         public string GetTitle()
         {
             return title;
         }
 
-        //loads current room description
+        //Loads current room description
         public string GetDescription()
         {
             return description;
         }
 
-        //checks if the current room has loot, displays an message otherwise
+        //Checks if the current room has loot, displays an message otherwise
         public bool GetLoot()
         {
             if (hasLoot == true)
             {
-                // Uses a randomly generated number to select what loot is present in the current room
+                //Uses a randomly generated number to select what loot is present in the current room
                 Random randomNum = new Random();
-                int lootseed = randomNum.Next(0, 100);
+                int lootSeed = randomNum.Next(0, 100);
 
-                if (lootseed >= 50)
+                //Loot present in room is based on rarity
+                if (lootSeed >= 50)
                 {
                     Player.PickUpItem(lootTable[0]);
                 }
-                else if (lootseed >= 20)
+                else if (lootSeed >= 20)
                 {
                     Player.PickUpItem(lootTable[1]);
                 }
-                else if (lootseed >= 1)
+                else if (lootSeed >= 1)
                 {
                     Player.PickUpItem(lootTable[2]);
                 }
@@ -71,7 +72,7 @@ namespace DungeonExplorer
                     Player.PickUpItem(lootTable[3]);
                 }
 
-
+                //Set "hasLoot" to false to prevent infinite collection of items
                 Console.WriteLine("loot found!");
                 hasLoot = false;
             }
@@ -84,7 +85,7 @@ namespace DungeonExplorer
 
         string[,] RoomIndex =
             {
-            // Contains contents of rooms in the format - Title : Description : has loot?
+            //Contains contents of rooms in the format - Title : Description : has loot?
                 {"Empty Room", "A cold, damp room void of colour", "false"},
                 {"Treasure Room", "A cramped room composed of rotting wood and broken glass", "true" },
                 {"Exit Room", "A lukewarm room with the sun seeping through the cracks", "false" }
