@@ -73,7 +73,7 @@ namespace DungeonExplorer
                         playing = false;
                         break;
                     case "help":
-                        Console.WriteLine("commands are: look, search, stats, proceed, exit, quit and help...");
+                        Console.WriteLine("commands are: look, search, stats, inventory, proceed, leave, quit and help...");
                         break;
                     default:
                         Console.WriteLine("Invalid option, type \"help\" for a list of commands...");

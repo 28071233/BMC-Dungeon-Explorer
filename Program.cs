@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,9 @@ namespace DungeonExplorer
     {
         static void Main(string[] args)
         {
+            Creature creature = new Creature();
+            Console.WriteLine($"name: {creature.Name} Description: {creature.Description} health: {creature.Health}");
+
             Game game = new Game();
             game.Start();
             Console.WriteLine("\nProgram terminated, press any key to close...");
