@@ -20,6 +20,33 @@ namespace DungeonExplorer
         }
     }
 
+    public class Merchant : Creature
+    {
+        public Merchant(string name, string description, int health) 
+            : base(name, description, health)
+        {
+            this.Name = name;
+            this.Description = description;
+            this.Health = health;
+        }
+
+        public void DisplayItems()
+        {
+
+        }
+
+        public void SellItems()
+        {
+
+        }
+
+        public void BuyItems()
+        {
+
+        }
+
+    }
+
     public class Monster : Creature
     {
         public int AttackBaseDamage;
@@ -42,12 +69,44 @@ namespace DungeonExplorer
 
         public void SpecialAttack()
         {
-            Console.WriteLine("The Monter used it special ability!");
+            Console.WriteLine("The Monster used it special ability!");
         }
 
         public void Flee()
         {
             Console.WriteLine("The Monster Fleed!");
+        }
+    }
+
+    public class Goblin : Monster
+    {
+        public Goblin(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
+            : base(Name, Description, Health, attackBaseDamage, hasloot)
+        {
+        }
+    }
+
+    public class Skeleton : Monster
+    {
+        public Skeleton(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
+            : base(Name, Description, Health, attackBaseDamage, hasloot)
+        {
+        }
+    }
+
+    public class FallenKnight : Monster
+    {
+        public FallenKnight(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
+            : base(Name, Description, Health, attackBaseDamage, hasloot)
+        {
+        }
+    }
+
+    public class Orc : Monster
+    {
+        public Orc(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
+            : base(Name, Description, Health, attackBaseDamage, hasloot)
+        {
         }
     }
 
