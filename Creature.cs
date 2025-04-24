@@ -8,7 +8,7 @@ namespace DungeonExplorer
 {
     public abstract class Creature
     {
-        public abstract string Name { get;  }
+        public virtual string Name { get; set;}
         public abstract string Description { get; }
         public abstract int Health { get; }
     }
@@ -178,9 +178,8 @@ namespace DungeonExplorer
 
     public class PlayerRewritten : Creature
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Health => throw new NotImplementedException();
+        public override string Description => "An underprepared adventurer wishing to test their luck";
+        public override int Health => 100;
 
         /*public PlayerRewritten(string name, string description, int health) 
             : base(name, description, health)
@@ -189,6 +188,11 @@ namespace DungeonExplorer
             this.Description = description;
             this.Health = health;
         }*/
+
+        public PlayerRewritten(string name)
+        {
+            this.Name = name;
+        }
     }
 }
 
