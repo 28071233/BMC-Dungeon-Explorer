@@ -146,7 +146,6 @@ namespace DungeonExplorer
         }
     }
 
-
     public class Orc : Monster
     {
         public override string Name => "Orc";
