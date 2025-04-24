@@ -8,9 +8,9 @@ namespace DungeonExplorer
 {
     public abstract class Creature
     {
-        public virtual string Name { get; set;}
+        public virtual string Name { get; set; }
         public abstract string Description { get; }
-        public abstract int Health { get; }
+        public virtual int Health { get; set; }
     }
 
     public class Merchant : Creature
@@ -58,26 +58,26 @@ namespace DungeonExplorer
 
     public class Goblin : Monster
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Health => throw new NotImplementedException();
-        public override int AttackBaseDamage => throw new NotImplementedException();
-        public override bool Hasloot => throw new NotImplementedException();
+        public override string Name => "Goblin";
+        public override string Description => "A small but agile creature looking for treasures";
+        public override int Health => 50;
+        public override int AttackBaseDamage => 15;
+        public override bool Hasloot => true;
 
 
         public override void Attack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Goblin attacks!");
         }
 
         public override void SpecialAttack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Goblin used it's special attack!");
         }
 
         public override void Flee()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Goblin fled the battle!");
         }
 
         /*public Goblin(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
@@ -88,26 +88,26 @@ namespace DungeonExplorer
 
     public class Skeleton : Monster
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Health => throw new NotImplementedException();
-        public override int AttackBaseDamage => throw new NotImplementedException();
-        public override bool Hasloot => throw new NotImplementedException();
+        public override string Name => "Skeleton";
+        public override string Description => "A slender, decomposed adventurer wielding a bow";
+        public override int Health => 70;
+        public override int AttackBaseDamage => 25;
+        public override bool Hasloot => false;
 
 
         public override void Attack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Skeleton attacks!");
         }
 
         public override void SpecialAttack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Skeleton used it's special attack!");
         }
 
         public override void Flee()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Skeleton fled the battle!");
         }
 
         /*public Skeleton(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
@@ -118,56 +118,57 @@ namespace DungeonExplorer
 
     public class FallenKnight : Monster
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Health => throw new NotImplementedException();
-        public override int AttackBaseDamage => throw new NotImplementedException();
-        public override bool Hasloot => throw new NotImplementedException();
+        public override string Name => "Fallen Knight";
+        public override string Description => "A decrepit suit of armour that continues to fight long after it's master has fallen";
+        public override int Health => 100;
+        public override int AttackBaseDamage => 35;
+        public override bool Hasloot => false;
 
 
         public override void Attack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Fallen Knight attacks!");
         }
 
         public override void SpecialAttack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Fallen Knight used it's special attack!");
         }
 
         public override void Flee()
         {
-            throw new NotImplementedException();
-        }
+            Console.WriteLine("The Fallen Knight fled the battle!");
 
-        /*public FallenKnight(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
-            : base(Name, Description, Health, attackBaseDamage, hasloot)
-        {
-        }*/
+            /*public FallenKnight(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
+                : base(Name, Description, Health, attackBaseDamage, hasloot)
+            {
+            }*/
+        }
     }
+
 
     public class Orc : Monster
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Health => throw new NotImplementedException();
-        public override int AttackBaseDamage => throw new NotImplementedException();
-        public override bool Hasloot => throw new NotImplementedException();
+        public override string Name => "Orc";
+        public override string Description => "A towering beast that weaponises whatever crude object it gets it's hands on";
+        public override int Health => 150;
+        public override int AttackBaseDamage => 30;
+        public override bool Hasloot => false;
 
 
         public override void Attack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Orc attacks!");
         }
 
         public override void SpecialAttack()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Orc uses it's special attack!");
         }
 
         public override void Flee()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("The Orc fled the battle!");
         }
 
         /*public Orc(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
@@ -179,19 +180,11 @@ namespace DungeonExplorer
     public class PlayerRewritten : Creature
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
-        public override int Health => 100;
 
-        /*public PlayerRewritten(string name, string description, int health) 
-            : base(name, description, health)
+        public PlayerRewritten(string name, int health)
         {
             this.Name = name;
-            this.Description = description;
             this.Health = health;
-        }*/
-
-        public PlayerRewritten(string name)
-        {
-            this.Name = name;
         }
     }
 }

@@ -11,8 +11,6 @@ namespace DungeonExplorer
     {
         static void Main(string[] args)
         {
-            Creature creature = new Creature();
-            Console.WriteLine($"name: {creature.Name} Description: {creature.Description} health: {creature.Health}");
 
             Game game = new Game();
             game.Start();
