@@ -48,6 +48,9 @@ namespace DungeonExplorer
                     case "search":
                         currentRoom.GetLoot();
                         break;
+                    case "attack":
+                        Console.WriteLine("attack logic here");
+                        break;
                     case "stats":
                         Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
                         break;
@@ -73,7 +76,7 @@ namespace DungeonExplorer
                         playing = false;
                         break;
                     case "help":
-                        Console.WriteLine("commands are: look, search, stats, inventory, proceed, leave, quit and help...");
+                        Console.WriteLine("commands are: look, search, attack, stats, inventory, proceed, leave, quit and help...");
                         break;
                     default:
                         Console.WriteLine("Invalid option, type \"help\" for a list of commands...");
