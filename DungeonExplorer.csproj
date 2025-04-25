@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RoomRewritten.cs" />
-    <Compile Include="IHealth.cs" />
+    <Compile Include="IAttack.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Creature.cs" />

@@ -7,6 +7,7 @@ namespace DungeonExplorer
     {
         private Player player;
         private Room currentRoom;
+        private RoomRewritten CurrentRoomRewritten;
 
         public Game()
         {
@@ -88,10 +89,28 @@ namespace DungeonExplorer
 
         public void GenerateRoom()
         {
-            // Generate a number between 0 and 99 to use for creating the next room
+            currentRoom = new Room(RNG());
+
+            int roomSeed = RNG();
+            if (roomSeed >= 90)
+            {
+                CurrentRoomRewritten = new ExitRoom();
+            }
+            else if (roomSeed >= 60)
+            {
+                CurrentRoomRewritten = new TreasureRoom();
+            }
+            else
+            {
+                CurrentRoomRewritten = new EmptyRoom();
+            }
+        }
+
+        public static int RNG()
+        {
+            // Generate a number between 0 and 99
             Random randomNum = new Random();
-            int seed = randomNum.Next(0, 100);
-            currentRoom = new Room(seed);
+            return randomNum.Next(0, 100);
         }
     }
 }

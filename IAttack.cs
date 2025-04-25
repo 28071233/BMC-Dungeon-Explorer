@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    interface IHealth
+    interface IAttack
     {
-        int Health2 { get; set; }
     }
 }
