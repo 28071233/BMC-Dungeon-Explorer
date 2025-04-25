@@ -17,9 +17,9 @@ namespace DungeonExplorer
 
     public class Gold : Item
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Weight => throw new NotImplementedException();
+        public override string Name => "Gold";
+        public override string Description => "Tattered coins from a long time ago";
+        public override int Weight => 0;
 
         public override void UseItem()
         {
@@ -29,9 +29,9 @@ namespace DungeonExplorer
 
     public class HealthFlask : Item
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Weight => throw new NotImplementedException();
+        public override string Name => "Health flask";
+        public override string Description => "A potion that heals wounds";
+        public override int Weight => 1;
 
         public override void UseItem()
         {
@@ -41,9 +41,9 @@ namespace DungeonExplorer
 
     public class Rope : Item
     {
-        public override string Name => throw new NotImplementedException();
-        public override string Description => throw new NotImplementedException();
-        public override int Weight => throw new NotImplementedException();
+        public override string Name => "Rope";
+        public override string Description => "A tool that guarentees your escape in dangerous situations";
+        public override int Weight => 1;
 
         public override void UseItem()
         {
