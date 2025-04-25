@@ -11,6 +11,9 @@ namespace DungeonExplorer
     {
         static void Main(string[] args)
         {
+            RoomRewritten room = new ExitRoom();
+            Console.WriteLine(room.GetDescription());
+
 
             Game game = new Game();
             game.Start();
