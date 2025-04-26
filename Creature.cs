@@ -64,6 +64,10 @@ namespace DungeonExplorer
         public override int AttackBaseDamage => 15;
         public override bool Hasloot => true;
 
+        public Goblin()
+        {
+            this.Health = 50;
+        }
 
         public override void Attack()
         {
@@ -79,11 +83,6 @@ namespace DungeonExplorer
         {
             Console.WriteLine("The Goblin fled the battle!");
         }
-
-        /*public Goblin(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
-            : base(Name, Description, Health, attackBaseDamage, hasloot)
-        {
-        }*/
     }
 
     public class Skeleton : Monster
@@ -94,6 +93,10 @@ namespace DungeonExplorer
         public override int AttackBaseDamage => 25;
         public override bool Hasloot => false;
 
+        public Skeleton()
+        {
+            this.Health = 70;
+        }
 
         public override void Attack()
         {
@@ -109,21 +112,20 @@ namespace DungeonExplorer
         {
             Console.WriteLine("The Skeleton fled the battle!");
         }
-
-        /*public Skeleton(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
-            : base(Name, Description, Health, attackBaseDamage, hasloot)
-        {
-        }*/
     }
 
     public class FallenKnight : Monster
     {
         public override string Name => "Fallen Knight";
         public override string Description => "A decrepit suit of armour that continues to fight long after it's master has fallen";
-        public override int Health => 100;
+        //public override int Health => 100;
         public override int AttackBaseDamage => 35;
         public override bool Hasloot => false;
 
+        public FallenKnight()
+        {
+            this.Health = 100;
+        }
 
         public override void Attack()
         {
@@ -138,11 +140,6 @@ namespace DungeonExplorer
         public override void Flee()
         {
             Console.WriteLine("The Fallen Knight fled the battle!");
-
-            /*public FallenKnight(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
-                : base(Name, Description, Health, attackBaseDamage, hasloot)
-            {
-            }*/
         }
     }
 
@@ -150,10 +147,14 @@ namespace DungeonExplorer
     {
         public override string Name => "Orc";
         public override string Description => "A towering beast that weaponises whatever crude object it gets it's hands on";
-        public override int Health => 150;
+        //public override int Health => 150;
         public override int AttackBaseDamage => 30;
         public override bool Hasloot => false;
 
+        public Orc()
+        {
+            this.Health = 150;
+        }
 
         public override void Attack()
         {
@@ -169,11 +170,6 @@ namespace DungeonExplorer
         {
             Console.WriteLine("The Orc fled the battle!");
         }
-
-        /*public Orc(string Name, string Description, int Health, int attackBaseDamage, bool hasloot) 
-            : base(Name, Description, Health, attackBaseDamage, hasloot)
-        {
-        }*/
     }
 
     public class PlayerRewritten : Creature

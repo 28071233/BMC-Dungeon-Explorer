@@ -22,6 +22,7 @@ namespace DungeonExplorer
             Console.WriteLine("+++++++++++++++");
 
             testPlayer.Health = 0;
+            testOrc.Health = 0;
             if (testPlayer.Health == 0)
             {
                 Console.WriteLine($"{testPlayer.Name} {testPlayer.Health}");
