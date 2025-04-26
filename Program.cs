@@ -12,7 +12,23 @@ namespace DungeonExplorer
         static void Main(string[] args)
         {
             RoomRewritten room = new EmptyRoom();
-            Console.WriteLine("");
+            Console.WriteLine(room.CurrentLootNum);
+
+            PlayerRewritten testPlayer = new PlayerRewritten("testPlayer", 100);
+            Orc testOrc = new Orc();
+
+            Console.WriteLine($"{testPlayer.Name} {testPlayer.Health}");
+            Console.WriteLine($"{testOrc.Name} {testOrc.Health}");
+            Console.WriteLine("+++++++++++++++");
+
+            testPlayer.Health = 0;
+            if (testPlayer.Health == 0)
+            {
+                Console.WriteLine($"{testPlayer.Name} {testPlayer.Health}");
+                Console.WriteLine($"{testOrc.Name} {testOrc.Health}");
+                Console.WriteLine("GG!!");
+            }
+
 
 
             Game game = new Game();

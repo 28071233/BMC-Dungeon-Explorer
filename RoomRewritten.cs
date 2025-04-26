@@ -13,6 +13,7 @@ namespace DungeonExplorer
         public abstract string Description { get; }
         public abstract int LootChance { get; }
         public abstract int MaxLoot { get; }
+        public virtual int CurrentLootNum { get; set; }
         public abstract int MonsterChance { get; }
         public abstract int MaxMonster { get; }
 
@@ -39,8 +40,10 @@ namespace DungeonExplorer
         public EmptyRoom()
         {
             // variables needed
-            // List of current monsters
-            // List of current loot
+            // number of current monsters
+            // number of current loot
+
+            this.CurrentLootNum = 241;
         }
     }
 
