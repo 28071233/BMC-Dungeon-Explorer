@@ -16,6 +16,7 @@ namespace DungeonExplorer
         public virtual int CurrentLootNum { get; set; }
         public abstract int MonsterChance { get; }
         public abstract int MaxMonster { get; }
+        public virtual int CurrentMonsterNum { get; set; }
 
         public string GetTitle()
         {
@@ -25,6 +26,58 @@ namespace DungeonExplorer
         public string GetDescription()
         {
             return Description;
+        }
+
+        public void GenerateLootNum()
+        {
+            int nextLootChance = this.LootChance;
+            this.CurrentLootNum = 0;
+
+            while (this.CurrentLootNum < this.MaxLoot)
+            {
+                int randomNum = Game.RNG();
+                if (randomNum < nextLootChance)
+                {
+                    Console.WriteLine($"CurrentLootNum: {this.CurrentLootNum}");
+                    Console.WriteLine($"nextLootChance: {nextLootChance}");
+                    this.CurrentLootNum += 1;
+                    nextLootChance = nextLootChance / 2;
+                }
+                else
+                {
+                    Console.WriteLine("==================");
+                    Console.WriteLine("BREAK HERE:");
+                    Console.WriteLine($"CurrentLootNum: {this.CurrentLootNum}");
+                    Console.WriteLine($"nextLootChance: {nextLootChance}");
+                    break;
+                }
+            }
+        }
+
+        public void GenerateMonsterNum()
+        {
+            int nextMonsterChance = this.MonsterChance;
+            this.CurrentMonsterNum = 0;
+
+            while (this.CurrentMonsterNum < this.MaxMonster)
+            {
+                int randomNum = Game.RNG();
+                if (randomNum < nextMonsterChance)
+                {
+                    Console.WriteLine($"CurrentMonsterNum: {this.CurrentMonsterNum}");
+                    Console.WriteLine($"nextMonsterChance: {nextMonsterChance}");
+                    this.CurrentMonsterNum += 1;
+                    nextMonsterChance = nextMonsterChance / 2;
+                }
+                else
+                {
+                    Console.WriteLine("==================");
+                    Console.WriteLine("BREAK HERE:");
+                    Console.WriteLine($"CurrentMonsterNum: {this.CurrentMonsterNum}");
+                    Console.WriteLine($"nextMonsterChance: {nextMonsterChance}");
+                    break;
+                }
+            }
         }
     }
 
@@ -39,11 +92,8 @@ namespace DungeonExplorer
 
         public EmptyRoom()
         {
-            // variables needed
-            // number of current monsters
-            // number of current loot
-
-            this.CurrentLootNum = 241;
+            GenerateMonsterNum();
+            GenerateLootNum();
         }
     }
 
@@ -55,6 +105,12 @@ namespace DungeonExplorer
         public override int MaxLoot => 3;
         public override int MonsterChance => 65;
         public override int MaxMonster => 2;
+
+        public TreasureRoom()
+        {
+            GenerateMonsterNum();
+            GenerateLootNum();
+        }
     }
 
     public class MonsterRoom : RoomRewritten
@@ -65,6 +121,12 @@ namespace DungeonExplorer
         public override int MaxLoot => 2;
         public override int MonsterChance => 100;
         public override int MaxMonster => 3;
+
+        public MonsterRoom()
+        {
+            GenerateMonsterNum();
+            GenerateLootNum();
+        }
     }
 
     public class ExitRoom : RoomRewritten
@@ -75,5 +137,11 @@ namespace DungeonExplorer
         public override int MaxLoot => 1;
         public override int MonsterChance => 15;
         public override int MaxMonster => 1;
+
+        public ExitRoom()
+        {
+            GenerateMonsterNum();
+            GenerateLootNum();
+        }
     }
 }

@@ -11,26 +11,10 @@ namespace DungeonExplorer
     {
         static void Main(string[] args)
         {
-            RoomRewritten room = new EmptyRoom();
-            Console.WriteLine(room.CurrentLootNum);
-
-            PlayerRewritten testPlayer = new PlayerRewritten("testPlayer", 100);
-            Orc testOrc = new Orc();
-
-            Console.WriteLine($"{testPlayer.Name} {testPlayer.Health}");
-            Console.WriteLine($"{testOrc.Name} {testOrc.Health}");
+            RoomRewritten room = new ExitRoom();
             Console.WriteLine("+++++++++++++++");
-
-            testPlayer.Health = 0;
-            testOrc.Health = 0;
-            if (testPlayer.Health == 0)
-            {
-                Console.WriteLine($"{testPlayer.Name} {testPlayer.Health}");
-                Console.WriteLine($"{testOrc.Name} {testOrc.Health}");
-                Console.WriteLine("GG!!");
-            }
-
-
+            Console.WriteLine($"Number of Loot: {room.CurrentLootNum}");
+            Console.WriteLine($"Number of Monsters: {room.CurrentMonsterNum}");
 
             Game game = new Game();
             game.Start();
