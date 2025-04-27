@@ -6,9 +6,7 @@ namespace DungeonExplorer
     internal class Game
     {
         private Player player;
-        private PlayerRewritten playerRewritten;
         private Room currentRoom;
-        private RoomRewritten currentRoomRewritten;
 
         public Game()
         {
@@ -25,8 +23,8 @@ namespace DungeonExplorer
                 else
                 {
                     //Initialize the game with one player and one empty room
-                    playerRewritten = new PlayerRewritten(name, 100);
-                    currentRoomRewritten = new EmptyRoom();
+                    player = new Player(name, 100);
+                    currentRoom = new EmptyRoom();
                     nameValidation = false;
                 }
             }
@@ -45,26 +43,26 @@ namespace DungeonExplorer
                 switch (choice)
                 {
                     case "look":
-                        Console.WriteLine(currentRoomRewritten.GetDescription());
+                        Console.WriteLine(currentRoom.GetDescription());
                         break;
                     case "search":
-                        currentRoomRewritten.GetLoot();
+                        currentRoom.GetLoot();
                         break;
                     case "attack":
                         Console.WriteLine("attack logic here");
                         break;
                     case "stats":
-                        Console.WriteLine($"Name: {playerRewritten.Name} \nHealth: {playerRewritten.Health}");
+                        Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
                         break;
                     case "inventory":
-                        PlayerRewritten.InventoryContents();
+                        Player.InventoryContents();
                         break;
                     case "proceed":
                         Console.WriteLine("===========================================\n");
                         GenerateRoom();
                         break;
                     case "leave":
-                        if (currentRoomRewritten.GetTitle() == "Exit Room")
+                        if (currentRoom.GetTitle() == "Exit Room")
                         {
                             playing = false;
                             Console.WriteLine("Congratulations you escaped!");
@@ -93,15 +91,15 @@ namespace DungeonExplorer
             int roomSeed = RNG();
             if (roomSeed >= 90)
             {
-                currentRoomRewritten = new ExitRoom();
+                currentRoom = new ExitRoom();
             }
             else if (roomSeed >= 60)
             {
-                currentRoomRewritten = new TreasureRoom();
+                currentRoom = new TreasureRoom();
             }
             else
             {
-                currentRoomRewritten = new EmptyRoom();
+                currentRoom = new EmptyRoom();
             }
         }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public abstract class RoomRewritten
+    public abstract class Room
     {
         public abstract string Title { get; }
         public abstract string Description { get; }
@@ -62,22 +62,22 @@ namespace DungeonExplorer
                 if (randomInt >= 50)
                 {
                     Console.WriteLine("You found some Gold!");
-                    PlayerRewritten.PickUpItem("Gold");
+                    Player.PickUpItem("Gold");
                 }
                 else if (randomInt >= 20)
                 {
                     Console.WriteLine("You found a Health Flask!");
-                    PlayerRewritten.PickUpItem("Health Flask");
+                    Player.PickUpItem("Health Flask");
                 }
                 else if (randomInt >= 1)
                 {
                     Console.WriteLine("You found some Rope!");
-                    PlayerRewritten.PickUpItem("Rope");
+                    Player.PickUpItem("Rope");
                 }
                 else
                 {
                     Console.WriteLine("You found Choccy Milk!!!!!");
-                    PlayerRewritten.PickUpItem("Choccy Milk");
+                    Player.PickUpItem("Choccy Milk");
                 }
                 this.CurrentLootNum -= 1;
             }
@@ -114,7 +114,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class EmptyRoom : RoomRewritten
+    public class EmptyRoom : Room
     {
         public override string Title => "Empty Room";
         public override string Description => "A cold, damp room void of colour";
@@ -130,7 +130,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class TreasureRoom : RoomRewritten
+    public class TreasureRoom : Room
     {
         public override string Title => "Treasure Room";
         public override string Description => "A cramped room composed of rotting wood and broken glass";
@@ -146,7 +146,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class MonsterRoom : RoomRewritten
+    public class MonsterRoom : Room
     {
         public override string Title => "Monster Room";
         public override string Description => "A dimmly lit room with an ominous figure guarding the door...";
@@ -162,7 +162,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class ExitRoom : RoomRewritten
+    public class ExitRoom : Room
     {
         public override string Title => "Exit Room";
         public override string Description => "A lukewarm room with the sun seeping through the cracks";

@@ -172,12 +172,12 @@ namespace DungeonExplorer
         }
     }
 
-    public class PlayerRewritten : Creature
+    public class Player : Creature
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
         public static List<string> inventory = new List<string>();
 
-        public PlayerRewritten(string name, int health)
+        public Player(string name, int health)
         {
             this.Name = name;
             this.Health = health;
