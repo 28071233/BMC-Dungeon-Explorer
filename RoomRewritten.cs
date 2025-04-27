@@ -54,6 +54,39 @@ namespace DungeonExplorer
             }
         }
 
+        public void GetLoot()
+        {
+            if (this.CurrentLootNum > 0)
+            {
+                int randomInt = Game.RNG();
+                if (randomInt >= 50)
+                {
+                    Console.WriteLine("You found some Gold!");
+                    Player.PickUpItem("Gold");
+                }
+                else if (randomInt >= 20)
+                {
+                    Console.WriteLine("You found a Health Flask!");
+                    Player.PickUpItem("Health Flask");
+                }
+                else if (randomInt >= 1)
+                {
+                    Console.WriteLine("You found some Rope!");
+                    Player.PickUpItem("Rope");
+                }
+                else
+                {
+                    Console.WriteLine("You found Choccy Milk!!!!!");
+                    Player.PickUpItem("Choccy Milk");
+                }
+                this.CurrentLootNum -= 1;
+            }
+            else
+            {
+                Console.WriteLine("No items of use could be found here...");
+            }
+        }
+
         public void GenerateMonsterNum()
         {
             int nextMonsterChance = this.MonsterChance;

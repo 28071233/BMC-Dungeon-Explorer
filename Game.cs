@@ -7,7 +7,7 @@ namespace DungeonExplorer
     {
         private Player player;
         private Room currentRoom;
-        private RoomRewritten CurrentRoomRewritten;
+        private RoomRewritten currentRoomRewritten;
 
         public Game()
         {
@@ -25,7 +25,7 @@ namespace DungeonExplorer
                 {
                     //Initialize the game with one player and one empty room
                     player = new Player(name, 100);
-                    currentRoom = new Room(0);
+                    currentRoomRewritten = new EmptyRoom();
                     nameValidation = false;
                 }
             }
@@ -38,16 +38,16 @@ namespace DungeonExplorer
             while (playing)
             {     
                 // Get user choice and perform appropriate action
-                Console.Write("Enter input here: ");
+                Console.Write("\nEnter input here: ");
                 string choice = Console.ReadLine().ToLower().Trim();
 
                 switch (choice)
                 {
                     case "look":
-                        Console.WriteLine(currentRoom.GetDescription());
+                        Console.WriteLine(currentRoomRewritten.GetDescription());
                         break;
                     case "search":
-                        currentRoom.GetLoot();
+                        currentRoomRewritten.GetLoot();
                         break;
                     case "attack":
                         Console.WriteLine("attack logic here");
@@ -63,7 +63,7 @@ namespace DungeonExplorer
                         GenerateRoom();
                         break;
                     case "leave":
-                        if (currentRoom.GetTitle() == "Exit Room")
+                        if (currentRoomRewritten.GetTitle() == "Exit Room")
                         {
                             playing = false;
                             Console.WriteLine("Congratulations you escaped!");
@@ -89,20 +89,18 @@ namespace DungeonExplorer
 
         public void GenerateRoom()
         {
-            currentRoom = new Room(RNG());
-
             int roomSeed = RNG();
             if (roomSeed >= 90)
             {
-                CurrentRoomRewritten = new ExitRoom();
+                currentRoomRewritten = new ExitRoom();
             }
             else if (roomSeed >= 60)
             {
-                CurrentRoomRewritten = new TreasureRoom();
+                currentRoomRewritten = new TreasureRoom();
             }
             else
             {
-                CurrentRoomRewritten = new EmptyRoom();
+                currentRoomRewritten = new EmptyRoom();
             }
         }
 

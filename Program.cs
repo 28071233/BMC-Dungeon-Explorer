@@ -16,6 +16,7 @@ namespace DungeonExplorer
             Console.WriteLine($"Number of Loot: {room.CurrentLootNum}");
             Console.WriteLine($"Number of Monsters: {room.CurrentMonsterNum}");
 
+
             Game game = new Game();
             game.Start();
             Console.WriteLine("\nProgram terminated, press any key to close...");

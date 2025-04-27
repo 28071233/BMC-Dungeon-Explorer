@@ -175,11 +175,26 @@ namespace DungeonExplorer
     public class PlayerRewritten : Creature
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
+        public static List<string> inventory = new List<string>();
 
         public PlayerRewritten(string name, int health)
         {
             this.Name = name;
             this.Health = health;
+        }
+
+        public static void PickUpItem(string item)
+        {
+            inventory.Add(item);
+        }
+
+        public static void InventoryContents()
+        {
+            foreach (string invitem in inventory)
+            {
+                Console.Write($"{invitem}, ");
+            }
+            Console.WriteLine();
         }
     }
 }
