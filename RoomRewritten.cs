@@ -62,22 +62,22 @@ namespace DungeonExplorer
                 if (randomInt >= 50)
                 {
                     Console.WriteLine("You found some Gold!");
-                    Player.PickUpItem("Gold");
+                    PlayerRewritten.PickUpItem("Gold");
                 }
                 else if (randomInt >= 20)
                 {
                     Console.WriteLine("You found a Health Flask!");
-                    Player.PickUpItem("Health Flask");
+                    PlayerRewritten.PickUpItem("Health Flask");
                 }
                 else if (randomInt >= 1)
                 {
                     Console.WriteLine("You found some Rope!");
-                    Player.PickUpItem("Rope");
+                    PlayerRewritten.PickUpItem("Rope");
                 }
                 else
                 {
                     Console.WriteLine("You found Choccy Milk!!!!!");
-                    Player.PickUpItem("Choccy Milk");
+                    PlayerRewritten.PickUpItem("Choccy Milk");
                 }
                 this.CurrentLootNum -= 1;
             }

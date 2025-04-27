@@ -6,6 +6,7 @@ namespace DungeonExplorer
     internal class Game
     {
         private Player player;
+        private PlayerRewritten playerRewritten;
         private Room currentRoom;
         private RoomRewritten currentRoomRewritten;
 
@@ -24,7 +25,7 @@ namespace DungeonExplorer
                 else
                 {
                     //Initialize the game with one player and one empty room
-                    player = new Player(name, 100);
+                    playerRewritten = new PlayerRewritten(name, 100);
                     currentRoomRewritten = new EmptyRoom();
                     nameValidation = false;
                 }
@@ -53,10 +54,10 @@ namespace DungeonExplorer
                         Console.WriteLine("attack logic here");
                         break;
                     case "stats":
-                        Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
+                        Console.WriteLine($"Name: {playerRewritten.Name} \nHealth: {playerRewritten.Health}");
                         break;
                     case "inventory":
-                        Player.InventoryContents();
+                        PlayerRewritten.InventoryContents();
                         break;
                     case "proceed":
                         Console.WriteLine("===========================================\n");
