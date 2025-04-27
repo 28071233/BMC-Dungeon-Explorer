@@ -7,6 +7,7 @@ namespace DungeonExplorer
     {
         private Player player;
         private Room currentRoom;
+        private Monster currentMonster;
 
         public Game()
         {
@@ -49,7 +50,7 @@ namespace DungeonExplorer
                         currentRoom.GetLoot();
                         break;
                     case "attack":
-                        Console.WriteLine("attack logic here");
+                        CheckForMonsters();
                         break;
                     case "stats":
                         Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
@@ -58,8 +59,16 @@ namespace DungeonExplorer
                         Player.InventoryContents();
                         break;
                     case "proceed":
-                        Console.WriteLine("===========================================\n");
-                        GenerateRoom();
+
+                        if (currentRoom.CurrentMonsterNum > 0)
+                        {
+                            Console.WriteLine("A shadowy figure blocks your path!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("===========================================\n");
+                            GenerateRoom();
+                        }
                         break;
                     case "leave":
                         if (currentRoom.GetTitle() == "Exit Room")
@@ -88,12 +97,12 @@ namespace DungeonExplorer
 
         public void GenerateRoom()
         {
-            int roomSeed = RNG();
-            if (roomSeed >= 90)
+            int randomNum = RNG();
+            if (randomNum >= 90)
             {
                 currentRoom = new ExitRoom();
             }
-            else if (roomSeed >= 60)
+            else if (randomNum >= 60)
             {
                 currentRoom = new TreasureRoom();
             }
@@ -108,6 +117,46 @@ namespace DungeonExplorer
             // Generate a number between 0 and 99
             Random randomNum = new Random();
             return randomNum.Next(0, 100);
+        }
+
+        public void CheckForMonsters()
+        {
+            if (currentRoom.CurrentMonsterNum > 0)
+            {
+                AttackSequence();
+            }
+            else
+            {
+                Console.WriteLine("There isn't any monsters to attack...");
+            }
+
+        }
+
+        public void AttackSequence()
+        {
+            GenerateMonster();
+            Console.WriteLine(currentMonster.Name);
+        }
+
+        public void GenerateMonster()
+        {
+            int randomNum = RNG();
+            if (randomNum >= 90)
+            {
+                currentMonster = new Orc();
+            }
+            else if (randomNum >= 60)
+            {
+                currentMonster = new FallenKnight();
+            }
+            else if (randomNum >= 60)
+            {
+                currentMonster = new Skeleton();
+            }
+            else
+            {
+                currentMonster = new Goblin();
+            }
         }
     }
 }
