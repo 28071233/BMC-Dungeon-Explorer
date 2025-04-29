@@ -28,7 +28,8 @@ namespace DungeonExplorer
 
         public override void UseItem()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("gold used");
+            Player.RemoveItem(this.Name);
         }
     }
 
@@ -40,7 +41,8 @@ namespace DungeonExplorer
 
         public override void UseItem()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("HealthFlask used");
+            Player.RemoveItem(this.Name);
         }
     }
 
@@ -52,7 +54,8 @@ namespace DungeonExplorer
 
         public override void UseItem()
         {
-            throw new NotImplementedException();
+            Player.RemoveItem(this.Name);
+            Console.WriteLine("rope used");
         }
     }
 }

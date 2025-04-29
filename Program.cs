@@ -11,11 +11,7 @@ namespace DungeonExplorer
     {
         static void Main(string[] args)
         {
-            Room room = new ExitRoom();
-            Console.WriteLine("+++++++++++++++");
-            Console.WriteLine($"Number of Loot: {room.CurrentLootNum}");
-            Console.WriteLine($"Number of Monsters: {room.CurrentMonsterNum}");
-
+            
 
             Game game = new Game();
             game.Start();

@@ -175,7 +175,7 @@ namespace DungeonExplorer
     public class Player : Creature
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
-        public static List<string> inventory = new List<string>();
+        public static List<(string item, int amount)> inventory = new List<(string item, int amount)>();
 
         public Player(string name, int health)
         {
@@ -185,16 +185,58 @@ namespace DungeonExplorer
 
         public static void PickUpItem(string item)
         {
-            inventory.Add(item);
+            bool itemFound = false;
+            foreach ((string item, int amount) pair in inventory)
+            {
+                if (pair.item == item)
+                {
+                    itemFound = true;
+
+                    int changeAmount = pair.amount;
+                    changeAmount += 1;
+                    inventory.Remove((item, pair.amount));
+                    inventory.Add((item, changeAmount));
+
+                    break;
+                }
+            }
+
+            if (itemFound == false)
+            {
+                inventory.Add((item, 1));
+            }
+        }
+
+        public static void RemoveItem(string item)
+        {
+            foreach ((string item, int amount) pair in inventory)
+            {
+                if (pair.item == item)
+                {
+                    if (pair.amount == 1)
+                    {
+                        inventory.Remove((pair.item, 1));
+                        break;
+                    }
+                    else
+                    {
+                        int changeAmount = pair.amount;
+                        changeAmount -= 1;
+                        inventory.Remove((item, pair.amount));
+                        inventory.Add((item, changeAmount));
+                        break;
+                    }
+                }
+            }
         }
 
         public void InventoryContents()
         {
             Console.WriteLine("\nInventory");
             Console.WriteLine("============================");
-            foreach (string invitem in inventory)
+            foreach ((string item, int amount) pair in inventory)
             {
-                Console.WriteLine($"{invitem}, amount here ");
+                Console.WriteLine($"{pair.item} {pair.amount}");
             }
             Console.WriteLine("============================");
         }

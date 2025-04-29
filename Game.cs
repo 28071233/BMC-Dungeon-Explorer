@@ -174,7 +174,7 @@ namespace DungeonExplorer
                             choiceLoop = false;
                             break;
                         case "inventory":
-                            Console.WriteLine("You opened your inventory");
+                            Console.WriteLine("Inventory menu");
                             player.InventoryContents();
 
                             bool inventoryLoop = true;
@@ -192,13 +192,16 @@ namespace DungeonExplorer
                                             switch (inputs[1])
                                             {
                                                 case "gold":
-                                                    Console.WriteLine("Gold used");
+                                                    Gold gold = new Gold();
+                                                    gold.UseItem();
                                                     break;
                                                 case "healthflask":
-                                                    Console.WriteLine("health flask used");
+                                                    HealthFlask healthFlask = new HealthFlask();
+                                                    healthFlask.UseItem();
                                                     break;
                                                 case "rope":
-                                                    Console.WriteLine("rope used");
+                                                    Rope rope = new Rope();
+                                                    rope.UseItem();
                                                     break;
                                                 default:
                                                     Console.WriteLine("You must choose a valid item to Use!");
@@ -240,8 +243,11 @@ namespace DungeonExplorer
                                     case "back":
                                         inventoryLoop = false;
                                         break;
+                                    case "inventory":
+                                        player.InventoryContents();
+                                        break;
                                     case "help":
-                                        Console.WriteLine("commands are: use, define and back followed by item name");
+                                        Console.WriteLine("commands are: use, define and back followed by item name or inventory");
                                         Console.WriteLine("Example: \"use healthflask\"");
                                         break;
                                     default:
