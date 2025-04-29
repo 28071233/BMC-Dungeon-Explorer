@@ -13,6 +13,11 @@ namespace DungeonExplorer
         public abstract int Weight { get; }
 
         public abstract void UseItem();
+
+        public void GetDescription()
+        {
+            Console.WriteLine(Description);
+        }
     }
 
     public class Gold : Item
@@ -29,7 +34,7 @@ namespace DungeonExplorer
 
     public class HealthFlask : Item
     {
-        public override string Name => "Health flask";
+        public override string Name => "Healthflask";
         public override string Description => "A potion that heals wounds";
         public override int Weight => 1;
 

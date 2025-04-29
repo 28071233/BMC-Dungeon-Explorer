@@ -188,13 +188,15 @@ namespace DungeonExplorer
             inventory.Add(item);
         }
 
-        public static void InventoryContents()
+        public void InventoryContents()
         {
+            Console.WriteLine("\nInventory");
+            Console.WriteLine("============================");
             foreach (string invitem in inventory)
             {
-                Console.Write($"{invitem}, ");
+                Console.WriteLine($"{invitem}, amount here ");
             }
-            Console.WriteLine();
+            Console.WriteLine("============================");
         }
     }
 }

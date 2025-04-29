@@ -67,7 +67,7 @@ namespace DungeonExplorer
                 else if (randomInt >= 20)
                 {
                     Console.WriteLine("You found a Health Flask!");
-                    Player.PickUpItem("Health Flask");
+                    Player.PickUpItem("HealthFlask");
                 }
                 else if (randomInt >= 1)
                 {
