@@ -34,33 +34,6 @@ namespace DungeonExplorer
 
         public void Start()
         {
-            /*
-            Console.WriteLine($"player.Name: {player.Name}");
-            Console.WriteLine($"Player.Health {player.Health}");
-            Console.WriteLine($"player.Description: {player.Description}");
-            Console.WriteLine($"Player.equippedArmour: {Player.EquippedArmour}");
-            Console.WriteLine($"Player.equippedWeapon: {Player.EquippedWeapon}");
-            */
-            Player.PickUpItem("RustyArmour");
-            Player.PickUpItem("RustySword");
-            Player.PickUpItem("WornArmour");
-            Player.PickUpItem("WornSword");
-            player.InventoryContents();
-
-            RustySword rustySword = new RustySword();
-            rustySword.UseItem();
-
-            RustyArmour rustyArmour = new RustyArmour();
-            rustyArmour.UseItem();
-
-            WornSword wornSword = new WornSword();
-            wornSword.UseItem();
-
-            WornArmour wornArmour = new WornArmour();
-            wornArmour.UseItem();
-
-            player.InventoryContents();
-
             // Create gameplay loop until the user quits or escapes
             while (playing)
             {     
@@ -83,7 +56,7 @@ namespace DungeonExplorer
                         Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
                         break;
                     case "inventory":
-                        player.InventoryContents();
+                        player.OpenInventory();
                         break;
                     case "proceed":
 
@@ -201,88 +174,7 @@ namespace DungeonExplorer
                             choiceLoop = false;
                             break;
                         case "inventory":
-                            Console.WriteLine("Inventory menu");
-                            player.InventoryContents();
-
-                            bool inventoryLoop = true;
-                            while (inventoryLoop)
-                            {
-                                Console.Write("\nInventory: ");
-                                choice = Console.ReadLine().ToLower().Trim();
-
-                                string[] inputs = choice.Split(' ');
-                                switch (inputs[0])
-                                {
-                                    case "use":
-                                        try
-                                        {
-                                            switch (inputs[1])
-                                            {
-                                                case "gold":
-                                                    Gold gold = new Gold();
-                                                    gold.UseItem();
-                                                    break;
-                                                case "healthflask":
-                                                    HealthFlask healthFlask = new HealthFlask();
-                                                    healthFlask.UseItem();
-                                                    break;
-                                                case "rope":
-                                                    Rope rope = new Rope();
-                                                    rope.UseItem();
-                                                    break;
-                                                default:
-                                                    Console.WriteLine("You must choose a valid item to Use!");
-                                                    break;
-                                            }
-                                        }
-                                        catch (Exception)
-                                        {
-                                            Console.WriteLine("You must choose an item to use!");
-                                        }
-                                        break;
-                                    case "define":
-                                        try
-                                        {
-                                            switch (inputs[1])
-                                            {
-                                                case "gold":
-                                                    Gold gold = new Gold();
-                                                    gold.GetDescription();
-                                                    break;
-                                                case "healthflask":
-                                                    HealthFlask healthFlask = new HealthFlask();
-                                                    healthFlask.GetDescription();
-                                                    break;
-                                                case "rope":
-                                                    Rope rope = new Rope();
-                                                    rope.GetDescription();
-                                                    break;
-                                                default:
-                                                    Console.WriteLine("You must choose a valid item to Define!");
-                                                    break;
-                                            }
-                                        }
-                                        catch (Exception)
-                                        {
-                                            Console.WriteLine("You must choose an item to use!");
-                                        }
-                                        break;
-                                    case "back":
-                                        inventoryLoop = false;
-                                        break;
-                                    case "inventory":
-                                        player.InventoryContents();
-                                        break;
-                                    case "help":
-                                        Console.WriteLine("commands are: use, define and back followed by item name or inventory");
-                                        Console.WriteLine("Example: \"use healthflask\"");
-                                        break;
-                                    default:
-                                        Console.WriteLine("Invalid option, type \"help\" for a list of commands...");
-                                        break;
-
-                                }
-                            }
+                            player.OpenInventory();
                             break;
                         case "flee":
                             Console.WriteLine("You fled the battle!");

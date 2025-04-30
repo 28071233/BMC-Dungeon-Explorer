@@ -232,6 +232,91 @@ namespace DungeonExplorer
             }
         }
 
+        public void OpenInventory()
+        {
+            InventoryContents();
+
+            bool inventoryLoop = true;
+            while (inventoryLoop)
+            {
+                Console.Write("\nInventory: ");
+                string choice = Console.ReadLine().ToLower().Trim();
+
+                string[] inputs = choice.Split(' ');
+                switch (inputs[0])
+                {
+                    case "use":
+                        try
+                        {
+                            switch (inputs[1])
+                            {
+                                case "gold":
+                                    Gold gold = new Gold();
+                                    gold.UseItem();
+                                    break;
+                                case "healthflask":
+                                    HealthFlask healthFlask = new HealthFlask();
+                                    healthFlask.UseItem();
+                                    break;
+                                case "rope":
+                                    Rope rope = new Rope();
+                                    rope.UseItem();
+                                    break;
+                                default:
+                                    Console.WriteLine("You must choose a valid item to Use!");
+                                    break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("You must choose an item to use!");
+                        }
+                        break;
+                    case "define":
+                        try
+                        {
+                            switch (inputs[1])
+                            {
+                                case "gold":
+                                    Gold gold = new Gold();
+                                    gold.GetDescription();
+                                    break;
+                                case "healthflask":
+                                    HealthFlask healthFlask = new HealthFlask();
+                                    healthFlask.GetDescription();
+                                    break;
+                                case "rope":
+                                    Rope rope = new Rope();
+                                    rope.GetDescription();
+                                    break;
+                                default:
+                                    Console.WriteLine("You must choose a valid item to Define!");
+                                    break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("You must choose an item to use!");
+                        }
+                        break;
+                    case "back":
+                        inventoryLoop = false;
+                        break;
+                    case "inventory":
+                        InventoryContents();
+                        break;
+                    case "help":
+                        Console.WriteLine("commands are: use, define and back followed by item name or inventory");
+                        Console.WriteLine("Example: \"use healthflask\"");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option, type \"help\" for a list of commands...");
+                        break;
+
+                }
+            }
+        }
+
         public void InventoryContents()
         {
             Console.WriteLine("\nInventory");
