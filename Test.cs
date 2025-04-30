@@ -8,5 +8,9 @@ namespace DungeonExplorer
 {
     class Test
     {
+        public static void DumpCurrentPlayerValues()
+        {
+
+        }
     }
 }

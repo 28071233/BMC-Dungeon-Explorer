@@ -34,6 +34,33 @@ namespace DungeonExplorer
 
         public void Start()
         {
+            /*
+            Console.WriteLine($"player.Name: {player.Name}");
+            Console.WriteLine($"Player.Health {player.Health}");
+            Console.WriteLine($"player.Description: {player.Description}");
+            Console.WriteLine($"Player.equippedArmour: {Player.EquippedArmour}");
+            Console.WriteLine($"Player.equippedWeapon: {Player.EquippedWeapon}");
+            */
+            Player.PickUpItem("RustyArmour");
+            Player.PickUpItem("RustySword");
+            Player.PickUpItem("WornArmour");
+            Player.PickUpItem("WornSword");
+            player.InventoryContents();
+
+            RustySword rustySword = new RustySword();
+            rustySword.UseItem();
+
+            RustyArmour rustyArmour = new RustyArmour();
+            rustyArmour.UseItem();
+
+            WornSword wornSword = new WornSword();
+            wornSword.UseItem();
+
+            WornArmour wornArmour = new WornArmour();
+            wornArmour.UseItem();
+
+            player.InventoryContents();
+
             // Create gameplay loop until the user quits or escapes
             while (playing)
             {     

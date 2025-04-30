@@ -175,6 +175,8 @@ namespace DungeonExplorer
     public class Player : Creature
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
+        public static string EquippedArmour = "RustyArmour";
+        public static string EquippedWeapon = "RustySword";
         public static List<(string item, int amount)> inventory = new List<(string item, int amount)>();
 
         public Player(string name, int health)
@@ -236,7 +238,7 @@ namespace DungeonExplorer
             Console.WriteLine("============================");
             foreach ((string item, int amount) pair in inventory)
             {
-                Console.WriteLine($"{pair.item} {pair.amount}");
+                Console.WriteLine($"{pair.item}: {pair.amount}");
             }
             Console.WriteLine("============================");
         }

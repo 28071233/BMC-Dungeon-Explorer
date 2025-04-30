@@ -38,17 +38,11 @@ namespace DungeonExplorer
                 int randomNum = Game.RNG();
                 if (randomNum < nextLootChance)
                 {
-                    Console.WriteLine($"CurrentLootNum: {this.CurrentLootNum}");
-                    Console.WriteLine($"nextLootChance: {nextLootChance}");
                     this.CurrentLootNum += 1;
                     nextLootChance = nextLootChance / 2;
                 }
                 else
                 {
-                    Console.WriteLine("==================");
-                    Console.WriteLine("BREAK HERE:");
-                    Console.WriteLine($"CurrentLootNum: {this.CurrentLootNum}");
-                    Console.WriteLine($"nextLootChance: {nextLootChance}");
                     break;
                 }
             }
@@ -97,17 +91,11 @@ namespace DungeonExplorer
                 int randomNum = Game.RNG();
                 if (randomNum < nextMonsterChance)
                 {
-                    Console.WriteLine($"CurrentMonsterNum: {this.CurrentMonsterNum}");
-                    Console.WriteLine($"nextMonsterChance: {nextMonsterChance}");
                     this.CurrentMonsterNum += 1;
                     nextMonsterChance = nextMonsterChance / 2;
                 }
                 else
                 {
-                    Console.WriteLine("==================");
-                    Console.WriteLine("BREAK HERE:");
-                    Console.WriteLine($"CurrentMonsterNum: {this.CurrentMonsterNum}");
-                    Console.WriteLine($"nextMonsterChance: {nextMonsterChance}");
                     break;
                 }
             }
