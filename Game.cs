@@ -164,7 +164,7 @@ namespace DungeonExplorer
                 bool choiceLoop = true;
                 while (choiceLoop)
                 {
-                    Console.Write("\nEnter input here: ");
+                    Console.Write("\nBattle input: ");
                     string choice = Console.ReadLine().ToLower().Trim();
 
                     switch (choice)
@@ -180,7 +180,7 @@ namespace DungeonExplorer
                             bool inventoryLoop = true;
                             while (inventoryLoop)
                             {
-                                Console.Write("\nEnter input here: ");
+                                Console.Write("\nInventory: ");
                                 choice = Console.ReadLine().ToLower().Trim();
 
                                 string[] inputs = choice.Split(' ');
@@ -259,7 +259,9 @@ namespace DungeonExplorer
                             break;
                         case "flee":
                             Console.WriteLine("You fled the battle!");
+                            currentRoom.CurrentMonsterNum -= 1;
                             choiceLoop = false;
+                            attackLoop = false;
                             break;
                         case "help":
                             Console.WriteLine("commands are: attack, inventory and flee ");
