@@ -150,6 +150,22 @@ namespace DungeonExplorer
         }
     }
 
+    public class MerchantRoom : Room
+    {
+        public override string Title => "Merchant Room";
+        public override string Description => "A mysterious but friendly figure lingers behind a table with unique items";
+        public override int LootChance => 0;
+        public override int MaxLoot => 0;
+        public override int MonsterChance => 0;
+        public override int MaxMonster => 0;
+
+        public MerchantRoom()
+        {
+            GenerateMonsterNum();
+            GenerateLootNum();
+        }
+    }
+
     public class ExitRoom : Room
     {
         public override string Title => "Exit Room";

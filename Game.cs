@@ -195,8 +195,9 @@ namespace DungeonExplorer
                 int playerDamageDealt = player.Attack(player.GetMaxDamageVariance());
                 currentMonster.Health -= playerDamageDealt;
 
-                int MonsterDamageDealt = currentMonster.Attack(currentMonster.GetMaxDamageVariance());
-                player.Health -= MonsterDamageDealt;
+                float monsterDamageDealt = currentMonster.Attack(currentMonster.GetMaxDamageVariance());
+                float armourDefense = Player.GetPlayerEquippedArmourDefense();
+                player.Health -= (int)Math.Round(monsterDamageDealt * armourDefense);
 
                 Console.WriteLine("################################################");
                 Console.WriteLine($"currentMonster.Health: {currentMonster.Health}");

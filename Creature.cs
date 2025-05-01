@@ -18,6 +18,7 @@ namespace DungeonExplorer
         public override string Name => "Merchant";
         public override string Description => "An old Wizard behind a crooked table with strange items";
         public override int Health => 1;
+        public static List<(string item, int amount)> inventory = new List<(string item, int amount)>();
 
         /*public Merchant(string name, string description, int health) 
             : base(name, description, health)
@@ -27,14 +28,32 @@ namespace DungeonExplorer
             this.Health = health;
         }*/
 
-        public void DisplayItems()
+        public void InventoryContents()
         {
-
+            Console.WriteLine("\nInventory");
+            Console.WriteLine("============================");
+            foreach ((string item, int amount) pair in inventory)
+            {
+                Console.WriteLine($"{pair.item}: {pair.amount}");
+            }
+            Console.WriteLine("============================");
         }
 
-        public void SellItems()
+        public void SellItem(string item)
         {
+            bool merchantItemFound = false;
+            foreach ((string item, int amount) merchantPair in inventory)
+            {
+                if (merchantPair.item == item)
+                {
+                    merchantItemFound = true;
+                }
+            }
 
+            if (merchantItemFound == false)
+            {
+                Console.WriteLine($"The merchant isn't selling any {item}");
+            }
         }
 
         public void BuyItems()
@@ -47,7 +66,7 @@ namespace DungeonExplorer
     public abstract class Monster : Creature, IAttack
     {
         public abstract int AttackBaseDamage { get; }
-        public abstract bool Hasloot { get; }
+        public abstract int lootChance { get; }
 
         public int GetMaxDamageVariance()
         {
@@ -103,19 +122,12 @@ namespace DungeonExplorer
         public override string Name => "Goblin";
         public override string Description => "A small but agile creature looking for treasures";
         public override int AttackBaseDamage => 15;
-        public override bool Hasloot => true;
+        public override int lootChance => 100;
 
         public Goblin()
         {
             this.Health = 50;
         }
-
-        /*
-        public override void Attack()
-        {
-            Console.WriteLine("The Goblin attacks!");
-        }
-        */
 
         public override void SpecialAttack()
         {
@@ -133,19 +145,12 @@ namespace DungeonExplorer
         public override string Name => "Skeleton";
         public override string Description => "A slender, decomposed adventurer wielding a bow";
         public override int AttackBaseDamage => 25;
-        public override bool Hasloot => false;
+        public override int lootChance => 30;
 
         public Skeleton()
         {
             this.Health = 70;
         }
-
-        /*
-        public override void Attack()
-        {
-            Console.WriteLine("The Skeleton attacks!");
-        }
-        */
 
         public override void SpecialAttack()
         {
@@ -162,20 +167,13 @@ namespace DungeonExplorer
     {
         public override string Name => "Fallen Knight";
         public override string Description => "A decrepit suit of armour that continues to fight long after it's master has fallen";
-        public override int AttackBaseDamage => 35;
-        public override bool Hasloot => false;
+        public override int AttackBaseDamage => 30;
+        public override int lootChance => 50;
 
         public FallenKnight()
         {
             this.Health = 100;
         }
-
-        /*
-        public override void Attack()
-        {
-            Console.WriteLine("The Fallen Knight attacks!");
-        }
-        */
 
         public override void SpecialAttack()
         {
@@ -192,20 +190,13 @@ namespace DungeonExplorer
     {
         public override string Name => "Orc";
         public override string Description => "A towering beast that weaponises whatever crude object it gets it's hands on";
-        public override int AttackBaseDamage => 30;
-        public override bool Hasloot => false;
+        public override int AttackBaseDamage => 20;
+        public override int lootChance => 15;
 
         public Orc()
         {
             this.Health = 150;
         }
-
-        /*
-        public override void Attack()
-        {
-            Console.WriteLine("The Orc attacks!");
-        }
-        */
 
         public override void SpecialAttack()
         {
@@ -218,7 +209,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class Player : Creature, IAttack
+    public class Player : Creature, IAttack//, IInventory
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
         public static string EquippedArmour = "RustyArmour";
@@ -246,9 +237,9 @@ namespace DungeonExplorer
             }
         }
 
-        public static int GetPlayerEquippedArmourDefense()
+        public static float GetPlayerEquippedArmourDefense()
         {
-            switch (EquippedWeapon)
+            switch (EquippedArmour)
             {
                 case "RustyArmour":
                     RustyArmour RustyArmour = new RustyArmour();
@@ -257,7 +248,7 @@ namespace DungeonExplorer
                     WornArmour WornArmour = new WornArmour();
                     return WornArmour.ArmourBaseDefense;
                 default:
-                    return 0;
+                    return -1;
             }
         }
 
@@ -304,6 +295,7 @@ namespace DungeonExplorer
                 return damageDealt;
             }
         }
+
         public static void PickUpItem(string item)
         {
             bool itemFound = false;

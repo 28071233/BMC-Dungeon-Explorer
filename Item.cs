@@ -11,6 +11,7 @@ namespace DungeonExplorer
         public abstract string Name { get; }
         public abstract string Description { get; }
         public abstract int Weight { get; }
+        public abstract int Value { get; }
 
         public abstract void UseItem();
 
@@ -104,6 +105,7 @@ namespace DungeonExplorer
         public override string Name => "RustySword";
         public override string Description => "A dull blade with a jagged edge";
         public override int Weight => 1;
+        public override int Value => 1;
         public override string Type => "Weapon";
         public override int AttackBaseDamage => 20;
     }
@@ -113,13 +115,14 @@ namespace DungeonExplorer
         public override string Name => "WornSword";
         public override string Description => "A sword with visable scratches and a discoloured handle";
         public override int Weight => 1;
+        public override int Value => 3;
         public override string Type => "Weapon";
         public override int AttackBaseDamage => 30;
     }
 
     public abstract class Armour : Equippable
     {
-        public abstract int ArmourBaseDefense { get; }
+        public abstract float ArmourBaseDefense { get; }
 
     }
 
@@ -130,8 +133,9 @@ namespace DungeonExplorer
         public override string Description => "A rough set of corroded metal that could to fall apart at any moment";
 
         public override int Weight => 1;
+        public override int Value => 1;
         public override string Type => "Armour";
-        public override int ArmourBaseDefense => 10;
+        public override float ArmourBaseDefense => 0.90F;
     }
 
     public class WornArmour : Armour
@@ -139,8 +143,9 @@ namespace DungeonExplorer
         public override string Name => "WornArmour";
         public override string Description => "A chipped set of armour with some loose plates";
         public override int Weight => 1;
+        public override int Value => 3;
         public override string Type => "Armour";
-        public override int ArmourBaseDefense => 30;
+        public override float ArmourBaseDefense => 0.70F;
     }
 
     public class Gold : Item
@@ -148,6 +153,7 @@ namespace DungeonExplorer
         public override string Name => "Gold";
         public override string Description => "Tattered coins from a long time ago";
         public override int Weight => 0;
+        public override int Value => 1;
 
         public override void UseItem()
         {
@@ -168,6 +174,7 @@ namespace DungeonExplorer
         public override string Name => "HealthFlask";
         public override string Description => "A potion that heals wounds";
         public override int Weight => 1;
+        public override int Value => 2;
 
         public override void UseItem()
         {
@@ -188,6 +195,7 @@ namespace DungeonExplorer
         public override string Name => "Rope";
         public override string Description => "A tool that guarentees your escape in dangerous situations";
         public override int Weight => 1;
+        public override int Value => 1;
 
         public override void UseItem()
         {

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IInventory.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="IAttack.cs" />
     <Compile Include="Item.cs" />
