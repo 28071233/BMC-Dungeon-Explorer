@@ -20,18 +20,19 @@ namespace DungeonExplorer
         public override int Health => 1;
         public static List<(string item, int amount)> inventory = new List<(string item, int amount)>();
 
-        /*public Merchant(string name, string description, int health) 
-            : base(name, description, health)
+        // initialise merchant with their items
+        public Merchant()
         {
-            this.Name = name;
-            this.Description = description;
-            this.Health = health;
-        }*/
+            inventory.Add(("HealthFlask", 1));
+            inventory.Add(("WornSword", 1));
+        }
 
+        // display the merchants items
         public void InventoryContents()
         {
-            Console.WriteLine("\nInventory");
+            Console.WriteLine("\nMerchant Inventory");
             Console.WriteLine("============================");
+            // display each item and it's amount for each row
             foreach ((string item, int amount) pair in inventory)
             {
                 Console.WriteLine($"{pair.item}: {pair.amount}");
@@ -39,28 +40,52 @@ namespace DungeonExplorer
             Console.WriteLine("============================");
         }
 
+        // allows the merchant to sell items to the player
         public void SellItem(string item)
         {
+            // check if the item the user inputted is in the merchants inventory...
             bool merchantItemFound = false;
             foreach ((string item, int amount) merchantPair in inventory)
             {
-                if (merchantPair.item == item)
+                // ...if it's present attempt to buy it...
+                if (merchantPair.item.ToLower() == item)
                 {
                     merchantItemFound = true;
+                    Gold gold = new Gold();
+                    gold.UseItem();
                 }
             }
 
+            // ...otherwise inform the user that the merchant doesn't have that item for sale
             if (merchantItemFound == false)
             {
                 Console.WriteLine($"The merchant isn't selling any {item}");
             }
         }
 
-        public void BuyItems()
+        // allows the merchant to buy items to the player
+        public void BuyItem(string item)
         {
+            // check if the item the player inputted is in the players inventory..
+            bool playerItemFound = false;
+            foreach ((string item, int amount) playerPair in Player.inventory)
+            {
+                if (playerPair.item.ToLower() == item)
+                {
+                    // ...if it's present attempt to sell it...
+                    playerItemFound = true;
+                    Console.WriteLine($"You sold a {item}");
+                    Player.RemoveItem(item);
+                    Player.PickUpItem("Gold");
+                }
+            }
 
+            // ...otherwise inform the user that the player doesn't have that item to sell
+            if (playerItemFound == false)
+            {
+                Console.WriteLine($"You dont have a {item} to sell!");
+            }
         }
-
     }
 
     public abstract class Monster : Creature, IAttack
@@ -68,39 +93,33 @@ namespace DungeonExplorer
         public abstract int AttackBaseDamage { get; }
         public abstract int lootChance { get; }
 
+        // function is used to make the damage from the monster vary by 50%
         public int GetMaxDamageVariance()
         {
             int maxDamageVariance = (this.AttackBaseDamage / 2);
             return maxDamageVariance;
         }
 
+        // function enables the monsters in sub classes to attack the player
         public int Attack(int maxDamageVariance)
         {
+            // set up variables...
             Random randomNum = new Random();
             int damageDealt;
 
+            // ...then generate a random number between 0.00 and 0.99...
             float randomDamageVariance = randomNum.Next(0, 100);
             float damageVariance = randomDamageVariance / 100;
 
+            // ...then calculate how much the damage can vary...
             float calculatedDamageVariance = maxDamageVariance * damageVariance;
             calculatedDamageVariance = (float)Math.Round(calculatedDamageVariance);
 
+            // ..then choose to add or subtract this variance to the base attack damage...
             int addOrSubtractDamage = randomNum.Next(0, 100);
 
             if (addOrSubtractDamage >= 50)
             {
-                /*
-                    Thoughts things
-                    - if base attack damage is 20, the max attack varience is 10
-                    - meaning the lowest attack is 10 and the highest is 30
-                    - if rng is above or equal to 50 we add, otherwise we takeaway
-                    - we can use rng again to generate a percentage represented as a number from 0.00 to 0.99, 
-                    - using this we can calculate the damage varience by doing: 
-                    randomNum = RNG()
-                    float damageVariance = randomNum / 100
-                    - Finally we can calculate the damage dealt:
-                    int damageDealt = currentMonster.AttackBaseDamage (+ or -) (maxDamageVariance * damageVariance)
-                */
 
                 damageDealt = (int)(this.AttackBaseDamage + calculatedDamageVariance);
                 return damageDealt;
@@ -110,6 +129,7 @@ namespace DungeonExplorer
                 damageDealt = (int)(this.AttackBaseDamage - calculatedDamageVariance);
                 return damageDealt;
             }
+            // ...finally return this value
         }
 
         public abstract void SpecialAttack();
@@ -209,7 +229,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class Player : Creature, IAttack//, IInventory
+    public class Player : Creature, IAttack//, IInventory (couldn't implement due to static variables)
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
         public static string EquippedArmour = "RustyArmour";

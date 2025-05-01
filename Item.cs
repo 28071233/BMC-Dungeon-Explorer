@@ -15,6 +15,7 @@ namespace DungeonExplorer
 
         public abstract void UseItem();
 
+        // returns true if item exists in inventory
         public bool SearchForItemInInventory()
         {
             bool itemFound = false;
@@ -25,15 +26,6 @@ namespace DungeonExplorer
                     itemFound = true;
                     break;
                 }
-
-                /*
-                Console.WriteLine("===========================");
-                Console.WriteLine("Debug again steam happy");
-                Console.WriteLine($"itemFound: {itemFound}");
-                Console.WriteLine($"pair.item: {pair.item}");
-                Console.WriteLine($"this.name: {this.Name}");
-                Console.WriteLine($"this.name.Tolower(): {this.Name.ToLower()}");
-                */
             }
 
             return itemFound;
@@ -159,8 +151,7 @@ namespace DungeonExplorer
         {
             if (SearchForItemInInventory() == true)
             {
-                Console.WriteLine($"{this.Name} used");
-                Player.RemoveItem(this.Name);
+                Console.WriteLine("use gold here");
             }
             else
             {

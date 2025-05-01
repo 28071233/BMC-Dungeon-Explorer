@@ -7,7 +7,8 @@ namespace DungeonExplorer
     internal class Game
     {
         private Player player;
-        private Room currentRoom;
+        private Merchant merchant;
+        public Room currentRoom;
         private Monster currentMonster;
         bool playing = true;
 
@@ -38,10 +39,11 @@ namespace DungeonExplorer
             // Create gameplay loop until the user quits or escapes
             while (playing)
             {     
-                // Get user choice and perform appropriate action
-                Console.Write("\nEnter input here: ");
+                // Get user choice...
+                Console.Write("\nRoom Input: ");
                 string choice = Console.ReadLine().ToLower().Trim();
 
+                // ...and then perform appropriate action
                 switch (choice)
                 {
                     case "look":
@@ -53,6 +55,9 @@ namespace DungeonExplorer
                     case "attack":
                         CheckForMonsters();
                         break;
+                    case "trade":
+                        CheckForMerchant();
+                        break;
                     case "stats":
                         Console.WriteLine($"Name: {player.Name} \nHealth: {player.Health}");
                         break;
@@ -60,7 +65,8 @@ namespace DungeonExplorer
                         player.OpenInventory();
                         break;
                     case "proceed":
-
+                        // Check if current room contains any monsters
+                        // if there is a monster present the user will not be able to proceed until it is defeated
                         if (currentRoom.CurrentMonsterNum > 0)
                         {
                             Console.WriteLine("A shadowy figure blocks your path!");
@@ -86,7 +92,7 @@ namespace DungeonExplorer
                         playing = false;
                         break;
                     case "help":
-                        Console.WriteLine("commands are: look, search, attack, stats, inventory, proceed, leave and quit");
+                        Console.WriteLine("commands are: look, search, attack, trade, stats, inventory, proceed, leave and quit");
                         break;
                     default:
                         Console.WriteLine("Invalid option, type \"help\" for a list of commands...");
@@ -96,6 +102,7 @@ namespace DungeonExplorer
             }
         }
 
+        // Function is responsible for selecting the next room to load into the currentRoom field
         public void GenerateRoom()
         {
             int randomNum = RNG();
@@ -107,12 +114,17 @@ namespace DungeonExplorer
             {
                 currentRoom = new TreasureRoom();
             }
+            else if (randomNum >= 40)
+            {
+                currentRoom = new MerchantRoom();
+            }
             else
             {
                 currentRoom = new EmptyRoom();
             }
         }
 
+        // Function is responsible for randomness throughout the code
         public static int RNG()
         {
             // Generate a number between 0 and 99
@@ -120,20 +132,40 @@ namespace DungeonExplorer
             return randomNum.Next(0, 100);
         }
 
+        // checks if there is any monsters in the room...
         public void CheckForMonsters()
         {
+            // ...and if there's at least one monster in the room... 
             if (currentRoom.CurrentMonsterNum > 0)
             {
+                // ...a monster is loaded into the current monster field...
                 GenerateMonster();
+                // ...and then the attack sequence begins
                 AttackSequence();
             }
             else
             {
                 Console.WriteLine("There isn't any monsters to attack...");
             }
-
         }
 
+        // checks if the current room is a merchant room...
+        public void CheckForMerchant()
+        {
+            if (currentRoom.Title == "Merchant Room")
+            {
+                // ...if it is then a new merchant is created...
+                merchant = new Merchant();
+                // ..and the trading window is opened
+                TradeSequence();
+            }
+            else
+            {
+                Console.WriteLine("There's no one to trade with!");
+            }
+        }
+
+        // loads a new monster into the currentMonster Field depending on RNG
         public void GenerateMonster()
         {
             int randomNum = RNG();
@@ -155,23 +187,100 @@ namespace DungeonExplorer
             }
         }
 
+        // allows the player to trade with the current merchant
+        public void TradeSequence()
+        {
+            // display the current merchants inventory
+            merchant.InventoryContents();
+
+            // keep player in trade window until they choose to back out of it
+            bool tradeLoop = true;
+            while (tradeLoop)
+            {
+                // Get user choice...
+                Console.Write("\nTrade input: ");
+                string choice = Console.ReadLine().ToLower().Trim();
+
+                // ...split the inputs into two...
+                string[] inputs = choice.Split(' ');
+
+                // ...and then perform appropriate action
+                switch (inputs[0])
+                {
+                    case "buy":
+                        try
+                        {
+                            merchant.SellItem(inputs[1]);
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("you must select a valid item to buy!");
+                        }
+                        break;
+                    case "sell":
+                        try
+                        {
+                            merchant.BuyItem(inputs[1]);
+                        }
+                        catch (System.InvalidOperationException)
+                        {
+                            Console.WriteLine("i do not know how to prevent this error");
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("You must choose a valid item to sell!");
+                        }
+                        break;
+                    case "items":
+                        Console.WriteLine("items here");
+                        break;
+                    case "back":
+                        tradeLoop = false;
+                        break;
+                    case "help":
+                        Console.WriteLine("commands are: buy, sell, items and back ");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option, type \"help\" for a list of commands...");
+                        break;
+                }
+            }
+        }
+
+        // allows the player to battle the current monster
         public void AttackSequence()
         {
+            // introduce the current monster
             Console.WriteLine($"A {currentMonster.Name} Appeared!");
 
+            // create a loop that allows the battle to go for multiple turns
             bool attackLoop = true;
             while (attackLoop)
             {
+                // create a loop for the user until they choose to flee or attack
                 bool choiceLoop = true;
                 while (choiceLoop)
                 {
+                    // Get user choice...
                     Console.Write("\nBattle input: ");
                     string choice = Console.ReadLine().ToLower().Trim();
 
+                    // ...and then perform appropriate action
                     switch (choice)
                     {
                         case "attack":
-                            Console.WriteLine("You attacked!");
+                            // retrieve the damage from the players current weapon + or - some random number...
+                            int playerDamageDealt = player.Attack(player.GetMaxDamageVariance());
+                            // ...then subtract that from the current monsters health
+                            currentMonster.Health -= playerDamageDealt;
+
+                            // retrieve the base attack damage from the current monster + or - some random number...
+                            float monsterDamageDealt = currentMonster.Attack(currentMonster.GetMaxDamageVariance());
+                            // ...then retrieve the players armour defense value...
+                            float armourDefense = Player.GetPlayerEquippedArmourDefense();
+                            // ...and then use that value to shield the player from some of the damage cause by the current monster
+                            player.Health -= (int)Math.Round(monsterDamageDealt * armourDefense);
+                            // finally leave the loop to check if the player or monster has died
                             choiceLoop = false;
                             break;
                         case "inventory":
@@ -192,23 +301,19 @@ namespace DungeonExplorer
                     }
                 }
 
-                int playerDamageDealt = player.Attack(player.GetMaxDamageVariance());
-                currentMonster.Health -= playerDamageDealt;
-
-                float monsterDamageDealt = currentMonster.Attack(currentMonster.GetMaxDamageVariance());
-                float armourDefense = Player.GetPlayerEquippedArmourDefense();
-                player.Health -= (int)Math.Round(monsterDamageDealt * armourDefense);
-
+                // Display current battle stats
                 Console.WriteLine("################################################");
-                Console.WriteLine($"currentMonster.Health: {currentMonster.Health}");
-                Console.WriteLine($"player.Health: {player.Health}");
+                Console.WriteLine($"{currentMonster.Name} Health: {currentMonster.Health}");
+                Console.WriteLine($"your health: {player.Health}");
 
+                // Check if the current monster is dead, if so leave the attack sequence and continue 
                 if (currentMonster.Health <= 0)
                 {
                     attackLoop = false;
                     Console.WriteLine($"{currentMonster.Name} defeated!");
                 }
 
+                // Check if the player is dead, if so leave the attack sequence and game and then display a game over screen
                 if (player.Health <= 0)
                 {
                     attackLoop = false;
