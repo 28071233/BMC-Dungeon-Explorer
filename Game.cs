@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Media;
+using System.Runtime.InteropServices;
 
 namespace DungeonExplorer
 {
@@ -191,7 +192,21 @@ namespace DungeonExplorer
                     }
                 }
 
-                CalculateMonsterDamage();
+                int playerDamageDealt = player.Attack(player.GetMaxDamageVariance());
+                currentMonster.Health -= playerDamageDealt;
+
+                int MonsterDamageDealt = currentMonster.Attack(currentMonster.GetMaxDamageVariance());
+                player.Health -= MonsterDamageDealt;
+
+                Console.WriteLine("################################################");
+                Console.WriteLine($"currentMonster.Health: {currentMonster.Health}");
+                Console.WriteLine($"player.Health: {player.Health}");
+
+                if (currentMonster.Health <= 0)
+                {
+                    attackLoop = false;
+                    Console.WriteLine($"{currentMonster.Name} defeated!");
+                }
 
                 if (player.Health <= 0)
                 {
@@ -201,57 +216,5 @@ namespace DungeonExplorer
                 }
             }
         }   
-
-        public void CalculateMonsterDamage()
-        {
-            Random randomNum = new Random();
-            int damageDealt;
-
-            int maxDamageVariance = (currentMonster.AttackBaseDamage / 2);
-
-            float randomDamageVariance = randomNum.Next(0, 100);
-            float damageVariance = randomDamageVariance / 100;
-
-            float calculatedDamageVariance = maxDamageVariance * damageVariance;
-            calculatedDamageVariance = (float)Math.Round(calculatedDamageVariance);
-
-            int addOrSubtractDamage = randomNum.Next(0, 100);
-
-            if (addOrSubtractDamage >= 50)
-            {
-                /*
-                    Thoughts things
-                    - if base attack damage is 20, the max attack varience is 10
-                    - meaning the lowest attack is 10 and the highest is 30
-                    - if rng is above or equal to 50 we add, otherwise we takeaway
-                    - we can use rng again to generate a percentage represented as a number from 0.00 to 0.99, 
-                    - using this we can calculate the damage varience by doing: 
-                    randomNum = RNG()
-                    float damageVariance = randomNum / 100
-                    - Finally we can calculate the damage dealt:
-                    int damageDealt = currentMonster.AttackBaseDamage (+ or -) (maxDamageVariance * damageVariance)
-                */
-
-                damageDealt = (int)(currentMonster.AttackBaseDamage + calculatedDamageVariance);
-                player.Health -= damageDealt;
-            }
-            else
-            {
-                damageDealt = (int)(currentMonster.AttackBaseDamage - calculatedDamageVariance);
-                player.Health -= damageDealt;
-            }
-
-            Console.WriteLine("\n=====================================");
-            Console.WriteLine("Debug\n");
-            Console.WriteLine($"Name: {currentMonster.Name}");
-            Console.WriteLine($"addOrSubtractDamage: {addOrSubtractDamage}");
-            Console.WriteLine($"AttackBaseDamage: {currentMonster.AttackBaseDamage}");
-            Console.WriteLine($"maxDamageVariance: {maxDamageVariance}");
-            Console.WriteLine($"randomDamageVariance: {randomDamageVariance}");
-            Console.WriteLine($"damageVariance: {damageVariance}");
-            Console.WriteLine($"calculatedDamageVariance: {calculatedDamageVariance}");
-            Console.WriteLine($"damageDealt: {damageDealt}");
-            Console.WriteLine($"player.Health: {player.Health}");
-        }
     }
 }

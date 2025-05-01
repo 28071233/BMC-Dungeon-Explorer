@@ -127,7 +127,7 @@ namespace DungeonExplorer
     {
         public override string Name => "RustyArmour";
 
-        public override string Description => "A rough set of corroded metal that could to fall apart at any time";
+        public override string Description => "A rough set of corroded metal that could to fall apart at any moment";
 
         public override int Weight => 1;
         public override string Type => "Armour";
@@ -142,6 +142,7 @@ namespace DungeonExplorer
         public override string Type => "Armour";
         public override int ArmourBaseDefense => 30;
     }
+
     public class Gold : Item
     {
         public override string Name => "Gold";

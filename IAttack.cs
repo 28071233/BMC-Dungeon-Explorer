@@ -8,5 +8,8 @@ namespace DungeonExplorer
 {
     interface IAttack
     {
+        int GetMaxDamageVariance();
+
+        int Attack(int maxDamageVariance);
     }
 }

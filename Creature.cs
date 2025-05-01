@@ -44,12 +44,54 @@ namespace DungeonExplorer
 
     }
 
-    public abstract class Monster : Creature
+    public abstract class Monster : Creature, IAttack
     {
         public abstract int AttackBaseDamage { get; }
         public abstract bool Hasloot { get; }
 
-        public abstract void Attack();
+        public int GetMaxDamageVariance()
+        {
+            int maxDamageVariance = (this.AttackBaseDamage / 2);
+            return maxDamageVariance;
+        }
+
+        public int Attack(int maxDamageVariance)
+        {
+            Random randomNum = new Random();
+            int damageDealt;
+
+            float randomDamageVariance = randomNum.Next(0, 100);
+            float damageVariance = randomDamageVariance / 100;
+
+            float calculatedDamageVariance = maxDamageVariance * damageVariance;
+            calculatedDamageVariance = (float)Math.Round(calculatedDamageVariance);
+
+            int addOrSubtractDamage = randomNum.Next(0, 100);
+
+            if (addOrSubtractDamage >= 50)
+            {
+                /*
+                    Thoughts things
+                    - if base attack damage is 20, the max attack varience is 10
+                    - meaning the lowest attack is 10 and the highest is 30
+                    - if rng is above or equal to 50 we add, otherwise we takeaway
+                    - we can use rng again to generate a percentage represented as a number from 0.00 to 0.99, 
+                    - using this we can calculate the damage varience by doing: 
+                    randomNum = RNG()
+                    float damageVariance = randomNum / 100
+                    - Finally we can calculate the damage dealt:
+                    int damageDealt = currentMonster.AttackBaseDamage (+ or -) (maxDamageVariance * damageVariance)
+                */
+
+                damageDealt = (int)(this.AttackBaseDamage + calculatedDamageVariance);
+                return damageDealt;
+            }
+            else
+            {
+                damageDealt = (int)(this.AttackBaseDamage - calculatedDamageVariance);
+                return damageDealt;
+            }
+        }
 
         public abstract void SpecialAttack();
 
@@ -60,7 +102,6 @@ namespace DungeonExplorer
     {
         public override string Name => "Goblin";
         public override string Description => "A small but agile creature looking for treasures";
-        public override int Health => 50;
         public override int AttackBaseDamage => 15;
         public override bool Hasloot => true;
 
@@ -69,10 +110,12 @@ namespace DungeonExplorer
             this.Health = 50;
         }
 
+        /*
         public override void Attack()
         {
             Console.WriteLine("The Goblin attacks!");
         }
+        */
 
         public override void SpecialAttack()
         {
@@ -89,7 +132,6 @@ namespace DungeonExplorer
     {
         public override string Name => "Skeleton";
         public override string Description => "A slender, decomposed adventurer wielding a bow";
-        public override int Health => 70;
         public override int AttackBaseDamage => 25;
         public override bool Hasloot => false;
 
@@ -98,10 +140,12 @@ namespace DungeonExplorer
             this.Health = 70;
         }
 
+        /*
         public override void Attack()
         {
             Console.WriteLine("The Skeleton attacks!");
         }
+        */
 
         public override void SpecialAttack()
         {
@@ -118,7 +162,6 @@ namespace DungeonExplorer
     {
         public override string Name => "Fallen Knight";
         public override string Description => "A decrepit suit of armour that continues to fight long after it's master has fallen";
-        //public override int Health => 100;
         public override int AttackBaseDamage => 35;
         public override bool Hasloot => false;
 
@@ -127,10 +170,12 @@ namespace DungeonExplorer
             this.Health = 100;
         }
 
+        /*
         public override void Attack()
         {
             Console.WriteLine("The Fallen Knight attacks!");
         }
+        */
 
         public override void SpecialAttack()
         {
@@ -147,7 +192,6 @@ namespace DungeonExplorer
     {
         public override string Name => "Orc";
         public override string Description => "A towering beast that weaponises whatever crude object it gets it's hands on";
-        //public override int Health => 150;
         public override int AttackBaseDamage => 30;
         public override bool Hasloot => false;
 
@@ -156,10 +200,12 @@ namespace DungeonExplorer
             this.Health = 150;
         }
 
+        /*
         public override void Attack()
         {
             Console.WriteLine("The Orc attacks!");
         }
+        */
 
         public override void SpecialAttack()
         {
@@ -172,7 +218,7 @@ namespace DungeonExplorer
         }
     }
 
-    public class Player : Creature
+    public class Player : Creature, IAttack
     {
         public override string Description => "An underprepared adventurer wishing to test their luck";
         public static string EquippedArmour = "RustyArmour";
@@ -185,6 +231,79 @@ namespace DungeonExplorer
             this.Health = health;
         }
 
+        public static int GetPlayerEquippedWeaponDamage()
+        {
+            switch (EquippedWeapon) 
+            {
+                case "RustySword":
+                    RustySword rustySword = new RustySword();
+                    return rustySword.AttackBaseDamage;
+                case "WornSword":
+                    WornSword wornSword = new WornSword();
+                    return wornSword.AttackBaseDamage;
+                default:
+                    return 0;
+            }
+        }
+
+        public static int GetPlayerEquippedArmourDefense()
+        {
+            switch (EquippedWeapon)
+            {
+                case "RustyArmour":
+                    RustyArmour RustyArmour = new RustyArmour();
+                    return RustyArmour.ArmourBaseDefense;
+                case "WornArmour":
+                    WornArmour WornArmour = new WornArmour();
+                    return WornArmour.ArmourBaseDefense;
+                default:
+                    return 0;
+            }
+        }
+
+        public int GetMaxDamageVariance()
+        {
+            int maxDamageVariance = (Player.GetPlayerEquippedWeaponDamage() / 2);
+            return maxDamageVariance;
+        }
+
+        public int Attack(int maxDamageVariance)
+        {
+            Random randomNum = new Random();
+            int damageDealt;
+
+            float randomDamageVariance = randomNum.Next(0, 100);
+            float damageVariance = randomDamageVariance / 100;
+
+            float calculatedDamageVariance = maxDamageVariance * damageVariance;
+            calculatedDamageVariance = (float)Math.Round(calculatedDamageVariance);
+
+            int addOrSubtractDamage = randomNum.Next(0, 100);
+
+            if (addOrSubtractDamage >= 50)
+            {
+                /*
+                    Thoughts things
+                    - if base attack damage is 20, the max attack varience is 10
+                    - meaning the lowest attack is 10 and the highest is 30
+                    - if rng is above or equal to 50 we add, otherwise we takeaway
+                    - we can use rng again to generate a percentage represented as a number from 0.00 to 0.99, 
+                    - using this we can calculate the damage varience by doing: 
+                    randomNum = RNG()
+                    float damageVariance = randomNum / 100
+                    - Finally we can calculate the damage dealt:
+                    int damageDealt = currentMonster.AttackBaseDamage (+ or -) (maxDamageVariance * damageVariance)
+                */
+
+                damageDealt = (int)(Player.GetPlayerEquippedWeaponDamage() + calculatedDamageVariance);
+                return damageDealt;
+            }
+            else
+            {
+                damageDealt = (int)(Player.GetPlayerEquippedWeaponDamage() - calculatedDamageVariance);
+                return damageDealt;
+            }
+        }
         public static void PickUpItem(string item)
         {
             bool itemFound = false;
